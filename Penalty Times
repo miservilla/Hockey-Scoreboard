@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Enter length of period (minutes):");
+            double inttimeLengthOfPediod = double.Parse(Console.ReadLine());//Reads length of period in minutes, and converts string to double.
+            double secondsLengthOfPeriod = inttimeLengthOfPediod * 60;//Converts minutes to seconds.
+            Console.Write("Enter length of penalty (minutes):");
+            double inttimeLengthOfPenalty = double.Parse(Console.ReadLine());//Reads length of penalty in minutes, and converts string to double.
+            double secondsLengthOfPenalty = inttimeLengthOfPenalty * 60;//Converts minutes to seconds.
+            Console.Write("Enter current clock time (hrs:minutes:seconds):");
+            double secondsCurrentClockTime = TimeSpan.Parse(Console.ReadLine()).TotalSeconds;//Reads current clock time in HRS:MIN:SEC, and converts string to double.
+            double TimeOutOfBox;//Declares a variable.
+            if (secondsCurrentClockTime >= secondsLengthOfPenalty)//Sets "if" statement to determine need to carry penalty over to next period.
+                TimeOutOfBox = secondsCurrentClockTime - secondsLengthOfPenalty;//TRUE if time on clock is longer than penalty (no need to go to next period).
+            else
+                TimeOutOfBox = secondsCurrentClockTime + secondsLengthOfPeriod - secondsLengthOfPenalty;//TRUE if time on clock is less than penalty (will need to extend into next period).
+            var timespan = TimeSpan.FromSeconds(TimeOutOfBox);
+            Console.WriteLine("Clock time player can get out of the box is " + timespan.ToString(@"mm\:ss") + ".");
+            Console.ReadKey();//Next is to create data sanitizers, then move to WPF.
+        }
+    }
+}
